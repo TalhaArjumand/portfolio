@@ -6,6 +6,8 @@ import { portfolio } from "../content/portfolio";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const hasProjectHref = (href?: string) => Boolean(href && href !== "NEEDS_INPUT");
+
 const ProjectsRail = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -184,7 +186,7 @@ const ProjectsRail = () => {
                           <span />
                         </div>
                       </div>
-                      {project.href ? (
+                      {hasProjectHref(project.href) ? (
                         <span className="project-card__preview-link" aria-hidden="true">
                           <FiArrowUpRight />
                         </span>
@@ -193,7 +195,7 @@ const ProjectsRail = () => {
                   </div>
                 </div>
               </div>
-              {project.href ? (
+              {hasProjectHref(project.href) ? (
                 <a className="project-card__link" href={project.href}>
                   View case study <FiArrowUpRight />
                 </a>

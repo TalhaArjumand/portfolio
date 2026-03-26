@@ -39,147 +39,150 @@ const ctas: LinkItem[] = [
 
 const capabilities: Capability[] = [
   {
-    title: "Product Frontend",
+    title: "Backend Platforms & API Architecture",
     summary:
-      "Build responsive interfaces that feel premium, communicate clearly, and support real business goals.",
-    tags: ["React", "TypeScript", "Design Systems", "Responsive UI"],
+      "I design backend-heavy systems that hold up under real operational pressure, from modular REST APIs and queue-driven workflows to authentication, database design, and production deployment.",
+    tags: ["Node.js", "Express.js", "PostgreSQL", "RabbitMQ"],
   },
   {
-    title: "Full-Stack Delivery",
+    title: "AI Workflows & Automation",
     summary:
-      "Ship production-ready features end to end when the product needs frontend execution plus backend coordination.",
-    tags: ["Node.js", "APIs", "Data Modeling", "Deployment"],
+      "I build practical AI-enabled systems that improve how teams operate, including RAG pipelines, multi-agent workflows, AI assistants, and automation layers that reduce repetitive manual work.",
+    tags: ["Python", "LangChain", "LangGraph", "n8n"],
   },
   {
-    title: "Client Collaboration",
+    title: "Blockchain-Backed Product Delivery",
     summary:
-      "Turn rough ideas into structured deliverables with clear milestones, sharper scope, and reliable communication.",
-    tags: ["Discovery", "Roadmapping", "Iteration", "Handoff"],
+      "I have hands-on experience integrating blockchain into real applications, including smart-contract workflows, backend orchestration, and auditable transaction flows across web and mobile products.",
+    tags: ["Solidity", "Hyperledger Besu", "Hardhat", "ethers.js"],
   },
 ];
 
 const projects: Project[] = [
   {
     index: "01",
-    category: "Operations Platform",
-    title: "Internal Dashboard For Faster Daily Execution",
+    category: "Humanitarian Platform",
+    title: "AidChain",
     summary:
-      "A clean control panel for teams managing operations, approvals, and reporting from one interface.",
+      "Led the architecture and delivery of a funded humanitarian aid distribution platform spanning backend APIs, blockchain infrastructure, NGO and admin web apps, and beneficiary and vendor mobile experiences. Built queue-driven disbursement workflows, smart-contract-linked settlement logic, and end-to-end operational traceability.",
     outcome:
-      "Reduced friction across repeated internal tasks and gave stakeholders a single place to track progress.",
-    stack: ["React", "TypeScript", "Charts", "API Integration"],
+      "Enabled same-day aid processing, typically within 6 hours, while reducing manual reconciliation effort by approximately 60%.",
+    stack: ["Node.js", "Hyperledger Besu", "RabbitMQ", "Flutter"],
     accent: "#d2a76b",
   },
   {
     index: "02",
-    category: "Marketing Site",
-    title: "Conversion-Focused Web Presence For A Service Business",
+    category: "AI Marketplace",
+    title: "GBR + BRIVION",
     summary:
-      "A premium marketing website designed to build trust quickly and move visitors toward enquiries.",
+      "Architected and delivered a full-stack AI consultation marketplace with 3-role RBAC, multi-step booking, a public expert directory, analytics dashboards, and an asynchronous expert-matching engine with admin review safeguards.",
     outcome:
-      "Clarified positioning, improved first impression, and created stronger calls to action for lead generation.",
-    stack: ["Vite", "GSAP", "Content Strategy", "Responsive Design"],
+      "Reduced expert assignment turnaround by approximately 45% and improved booking completion by approximately 18%.",
+    stack: ["React", "Node.js", "PostgreSQL", "Prisma"],
     accent: "#8cbfa8",
   },
   {
     index: "03",
-    category: "Workflow Tool",
-    title: "Feature-Rich Admin Experience With Structured Navigation",
+    category: "Automation Systems",
+    title: "AI Workflow Automation Platform",
     summary:
-      "A modular admin surface with reusable UI patterns for teams handling data-heavy workflows.",
+      "Built an event-driven automation layer that connected internal tools and operational workflows with AI-assisted routing, retry-safe webhook processing, and monitoring for reliable day-to-day execution.",
     outcome:
-      "Created a more maintainable UI foundation and made complex workflows easier to understand at a glance.",
-    stack: ["Design Tokens", "Reusable Components", "Filters", "Tables"],
+      "Automated 8 recurring workflows and reduced manual coordination across internal and client-facing processes.",
+    stack: ["Python", "Node.js", "PostgreSQL", "Docker"],
     accent: "#8fa7d8",
   },
 ];
 
 const experience: ExperienceItem[] = [
   {
-    period: "Add Your Current Period",
-    role: "Current Role Or Focus",
-    company: "Company / Freelance",
+    period: "Jan 2026 - Present",
+    role: "Full-Stack and AI Engineer",
+    company: "Freelance (Self-Employed)",
     summary:
-      "Describe what you are building now, what systems you own, and the kind of impact you are responsible for.",
+      "Builds full-stack systems, AI assistants, RAG pipelines, and automation workflows across Python, JavaScript, and TypeScript stacks for client-facing and internal use cases.",
   },
   {
-    period: "Add Previous Period",
-    role: "Previous Role",
-    company: "Previous Company",
+    period: "Jan 2025 - Feb 2026",
+    role: "Technical Lead & Full-Stack Blockchain Engineer",
+    company: "AidChain",
     summary:
-      "Summarize a meaningful responsibility, a migration, a delivery milestone, or a product challenge you handled.",
+      "Led delivery of a blockchain-backed humanitarian aid platform from research and architecture through sprint execution and release, combining backend APIs, queue orchestration, smart-contract workflows, and multi-surface product delivery.",
   },
   {
-    period: "Add Earlier Period",
-    role: "Foundational Role",
-    company: "Earlier Company Or Client Work",
+    period: "Dec 2024 - May 2025",
+    role: "Full Stack Engineer (Contract)",
+    company: "MarsBear Tech",
     summary:
-      "Use this slot for the experience that shows how your capability was formed, not just where you worked.",
+      "Built a full-stack AI consultation marketplace with secure APIs, expert-matching workflows, booking systems, RAG-powered internal knowledge retrieval, and CI/CD-backed deployment.",
   },
 ];
 
 const principles: Principle[] = [
   {
-    title: "Clarity First",
+    title: "Build For Production",
     description:
-      "Strong layout and strong copy matter as much as code when the goal is trust and conversion.",
+      "I optimize for systems that can survive real usage, with clean APIs, reliable workflows, secure defaults, and deployment discipline.",
   },
   {
-    title: "Ship With Intent",
+    title: "Tie Engineering To Outcomes",
     description:
-      "Every section should earn its place by supporting credibility, differentiation, or action.",
+      "I prefer work that improves throughput, reliability, clarity, or operating speed, not just feature count.",
   },
   {
-    title: "Maintainable Build",
+    title: "Keep Systems Explainable",
     description:
-      "The final site should look premium without becoming painful to update six weeks later.",
+      "Whether the stack involves queues, AI workflows, or blockchain, I value architectures that are traceable, defensible, and maintainable.",
   },
 ];
 
 const contactLinks: LinkItem[] = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/your-link" },
-  { label: "GitHub", href: "https://github.com/your-handle" },
-  { label: "Resume", href: "#" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/talha-arjumand-49703220a/",
+  },
+  { label: "GitHub", href: "https://github.com/TalhaArjumand" },
+  { label: "Resume", href: "NEEDS_INPUT" },
 ];
 
 export const portfolio = {
   identity: {
-    name: "Your Name",
-    location: "Based in Pakistan, collaborating across time zones",
+    name: "Talha Arjumand",
+    location: "Islamabad",
     oneLiner:
-      "I build polished product experiences that help companies hire faster, sell clearer, and ship with confidence.",
+      "I build full-stack products, backend systems, and AI-powered workflows.",
     supportLine:
-      "This starter is structured for both job applications and freelance client conversion. Replace the content in src/content/portfolio.ts with your real background, projects, and links.",
+      "Backend-first engineer with hands-on experience shipping production web applications, blockchain-backed platforms, and automation systems with clear operational impact.",
     rotatingRoles: [
-      "Full-Stack Developer",
-      "Frontend-Focused Builder",
-      "Freelance Product Partner",
+      "Full-Stack Engineer",
+      "Backend Systems Engineer",
+      "AI Workflow Engineer",
     ],
-    availability: "Open to full-time roles and selective freelance work",
+    availability: "Open to freelance work and remote engineering opportunities.",
     ctas,
   },
   credibility: [
-    "Available for freelance collaborations",
-    "Open to remote product roles",
-    "Frontend, UI systems, and product delivery",
-    "Fast iteration with clean handoff",
-    "Responsive, accessible, performance-aware builds",
+    "Led AidChain from research and architecture through release across 7 connected product surfaces.",
+    "Built 300+ REST endpoints, 117 database migrations, and 76 queue-driven workflows for a funded humanitarian platform.",
+    "Delivered same-day aid disbursement, typically within 6 hours, with 100% traceable off-chain to on-chain records.",
+    "Reduced expert assignment turnaround by approximately 45% in an AI consultation marketplace.",
+    "Automated 8 recurring operational workflows across internal operations and client-facing systems.",
   ],
   capabilities,
   projects,
   experience,
   about: {
     paragraphs: [
-      "I prefer work that is visually sharp, technically reliable, and easy for real users to move through. That usually means balancing engineering detail with clarity in content and interface structure.",
-      "For jobs, this portfolio should help recruiters understand range, depth, and communication style quickly. For clients, it should show that I can shape a polished experience, not just write code behind the scenes.",
+      "I work at the intersection of full-stack product delivery, backend systems, and applied AI. My strongest work is backend-first: designing APIs, shaping data flows, orchestrating async jobs, and building the technical foundations that make products reliable in production.",
+      "What differentiates my work is ownership. I have led complex systems from research and architecture through implementation and release, and I care about traceability, maintainability, and measurable operational outcomes rather than surface-level feature shipping.",
     ],
     principles,
   },
   contact: {
-    email: "hello@yourdomain.com",
-    phone: "+92 300 0000000",
+    email: "tarjumand11@gmail.com",
+    phone: "+923165115359",
     closing:
-      "If you are hiring, building a product, or need a portfolio-quality web experience, reach out and tell me what you are optimizing for.",
+      "If you need someone who can own backend-heavy delivery, full-stack product work, or AI-integrated systems with a production mindset, let's talk.",
     links: contactLinks,
   },
 } as const;

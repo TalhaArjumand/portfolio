@@ -3,8 +3,12 @@ import { FiFileText, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { portfolio } from "../content/portfolio";
 
 const SocialDock = () => {
-  const links = portfolio.contact.links.filter((item) => item.href.startsWith("http"));
-  const resumeLink = portfolio.contact.links.find((item) => item.label === "Resume");
+  const links = portfolio.contact.links.filter(
+    (item) => item.href.startsWith("http") && item.href !== "NEEDS_INPUT"
+  );
+  const resumeLink = portfolio.contact.links.find(
+    (item) => item.label === "Resume" && item.href !== "NEEDS_INPUT"
+  );
   const itemRefs = useRef<Array<HTMLSpanElement | null>>([]);
 
   useEffect(() => {

@@ -4,6 +4,12 @@ import { portfolio } from "../content/portfolio";
 const Contact = () => {
   const { contact } = portfolio;
   const year = new Date().getFullYear();
+  const socialLinks = contact.links.filter(
+    (link) => link.href.startsWith("http") && link.href !== "NEEDS_INPUT"
+  );
+  const hasResume = contact.links.some(
+    (link) => link.label === "Resume" && link.href !== "NEEDS_INPUT"
+  );
 
   return (
     <section className="section contact" id="contact">
@@ -32,7 +38,7 @@ const Contact = () => {
         </div>
         <div className="contact-column" data-reveal>
           <h4>Social</h4>
-          {contact.links.map((link) => (
+          {socialLinks.map((link) => (
             <a
               className="contact-social"
               href={link.href}
@@ -43,6 +49,7 @@ const Contact = () => {
               {link.label} <FiArrowUpRight />
             </a>
           ))}
+          {!hasResume ? <p>Resume available on request.</p> : null}
         </div>
         <div className="contact-column contact-column--closing" data-reveal>
           <h5>{contact.closing}</h5>
