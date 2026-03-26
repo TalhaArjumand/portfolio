@@ -1,30 +1,24 @@
-import { FiArrowUpRight, FiMail, FiPhone } from "react-icons/fi";
+import { FiArrowUpRight } from "react-icons/fi";
 import { portfolio } from "../content/portfolio";
 
 const Contact = () => {
   const { contact } = portfolio;
+  const year = new Date().getFullYear();
 
   return (
     <section className="section contact" id="contact">
-      <p className="contact__eyebrow" data-reveal>
-        Contact
-      </p>
       <h2 className="contact__title" data-split="chars">
-        Ready when the right project is.
+        Contact
       </h2>
       <div className="contact__grid">
         <div className="contact-column" data-reveal>
           <h4>Email</h4>
           <p>
-            <a href={`mailto:${contact.email}`}>
-              <FiMail /> {contact.email}
-            </a>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
           </p>
           <h4>Phone</h4>
           <p>
-            <a href={`tel:${contact.phone}`}>
-              <FiPhone /> {contact.phone}
-            </a>
+            <a href={`tel:${contact.phone}`}>{contact.phone}</a>
           </p>
         </div>
         <div className="contact-column" data-reveal>
@@ -42,11 +36,11 @@ const Contact = () => {
           ))}
         </div>
         <div className="contact-column contact-column--closing" data-reveal>
-          <h5>{contact.closing}</h5>
-          <p>
-            Designed and developed for jobs, clients, and stronger first
-            impressions.
-          </p>
+          <h5>
+            Designed and developed by <span>{portfolio.identity.name}</span>
+          </h5>
+          <p>{contact.closing}</p>
+          <span className="contact__copyright">© {year}</span>
         </div>
       </div>
     </section>

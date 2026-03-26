@@ -6,8 +6,12 @@ import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const usePortfolioMotion = () => {
+export const usePortfolioMotion = (enabled: boolean) => {
   useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -93,6 +97,11 @@ export const usePortfolioMotion = () => {
 
       gsap.utils
         .toArray<HTMLElement>("[data-reveal]")
+        .filter(
+          (element) =>
+            !element.matches(".capability-card") &&
+            !element.matches(".timeline__item")
+        )
         .forEach((element, index) => {
           gsap.fromTo(
             element,
@@ -110,6 +119,79 @@ export const usePortfolioMotion = () => {
             }
           );
         });
+
+      gsap.utils
+        .toArray<HTMLElement>(".capability-card")
+        .forEach((element, index) => {
+          gsap.fromTo(
+            element,
+            { autoAlpha: 0, y: 36, clipPath: "inset(0 0 16% 0)" },
+            {
+              autoAlpha: 1,
+              y: 0,
+              clipPath: "inset(0 0 0% 0)",
+              duration: 0.82,
+              ease: "power3.out",
+              delay: index * 0.04,
+              scrollTrigger: {
+                trigger: element,
+                start: "top 88%",
+              },
+            }
+          );
+        });
+
+      gsap.utils
+        .toArray<HTMLElement>(".timeline__item")
+        .forEach((element, index) => {
+          gsap.fromTo(
+            element,
+            {
+              autoAlpha: 0,
+              x: index % 2 === 0 ? -36 : 36,
+            },
+            {
+              autoAlpha: 1,
+              x: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: element,
+                start: "top 86%",
+              },
+            }
+          );
+        });
+
+      gsap.fromTo(
+        ".projects__headline",
+        { autoAlpha: 0, y: 34 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".projects",
+            start: "top 72%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".nav-fade",
+        { autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "+=180",
+            scrub: true,
+          },
+        }
+      );
 
       gsap.fromTo(
         ".band__item",
@@ -350,5 +432,5 @@ export const usePortfolioMotion = () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       splits.forEach((split) => split.revert());
     };
-  }, []);
+  }, [enabled]);
 };

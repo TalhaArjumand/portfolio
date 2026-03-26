@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Cursor from "./components/Cursor";
 import Hero from "./components/Hero";
 import CredibilityStrip from "./components/CredibilityStrip";
@@ -7,13 +8,20 @@ import Experience from "./components/Experience";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import SocialDock from "./components/SocialDock";
+import LoadingScreen from "./components/LoadingScreen";
+import { portfolio } from "./content/portfolio";
 import { usePortfolioMotion } from "./hooks/usePortfolioMotion";
 
 const App = () => {
-  usePortfolioMotion();
+  const [introComplete, setIntroComplete] = useState(false);
+
+  usePortfolioMotion(introComplete);
 
   return (
     <div className="page-shell">
+      {!introComplete ? (
+        <LoadingScreen onComplete={() => setIntroComplete(true)} />
+      ) : null}
       <Cursor />
       <div className="page-shell__blur page-shell__blur--one" />
       <div className="page-shell__blur page-shell__blur--two" />
@@ -27,7 +35,7 @@ const App = () => {
             <div>Portfolio</div>
           </span>
         </a>
-        <p className="topbar__connect">Let's Connect</p>
+        <p className="topbar__connect">{portfolio.contact.email}</p>
         <nav className="topbar__nav">
           <a className="hover-link" href="#about">
             <span className="hover-in">
@@ -54,11 +62,11 @@ const App = () => {
 
       <main className="page">
         <Hero />
-        <CredibilityStrip />
-        <ProjectsRail />
+        <About />
         <Capabilities />
         <Experience />
-        <About />
+        <ProjectsRail />
+        <CredibilityStrip />
         <Contact />
       </main>
     </div>

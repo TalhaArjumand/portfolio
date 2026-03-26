@@ -1,8 +1,9 @@
-import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { FiFileText, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { portfolio } from "../content/portfolio";
 
 const SocialDock = () => {
   const links = portfolio.contact.links.filter((item) => item.href.startsWith("http"));
+  const resumeLink = portfolio.contact.links.find((item) => item.label === "Resume");
 
   return (
     <aside className="social-dock" aria-label="Social links">
@@ -25,6 +26,11 @@ const SocialDock = () => {
           target="_blank"
         >
           <FiGithub />
+        </a>
+      ) : null}
+      {resumeLink ? (
+        <a href={resumeLink.href}>
+          <FiFileText />
         </a>
       ) : null}
     </aside>

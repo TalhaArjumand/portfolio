@@ -13,13 +13,17 @@ const Experience = () => {
         {portfolio.experience.map((item) => (
           <article className="timeline__item" data-reveal key={item.period}>
             <div className="timeline__marker" />
-            <div className="timeline__content">
-              <div className="timeline__topline">
-                <p>{item.period}</p>
-                <span>{item.company}</span>
+            <div className="timeline__row">
+              <div className="timeline__info">
+                <div className="timeline__role-wrap">
+                  <h3>{item.role}</h3>
+                  <p>{item.company}</p>
+                </div>
+                <strong>{item.period}</strong>
               </div>
-              <h3>{item.role}</h3>
-              <p>{item.summary}</p>
+              <div className="timeline__content">
+                <p>{item.summary}</p>
+              </div>
             </div>
           </article>
         ))}
