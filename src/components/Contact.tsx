@@ -7,9 +7,18 @@ const Contact = () => {
 
   return (
     <section className="section contact" id="contact">
-      <h2 className="contact__title" data-split="chars">
-        Contact
-      </h2>
+      <div className="contact__intro">
+        <p className="contact__eyebrow" data-reveal>
+          Let&apos;s Connect
+        </p>
+        <h2 className="contact__title" data-split="chars">
+          Contact
+        </h2>
+        <p className="contact__lede" data-split="words">
+          For hiring, freelance work, or product conversations that need both
+          clarity and execution.
+        </p>
+      </div>
       <div className="contact__grid">
         <div className="contact-column" data-reveal>
           <h4>Email</h4>
@@ -36,11 +45,15 @@ const Contact = () => {
           ))}
         </div>
         <div className="contact-column contact-column--closing" data-reveal>
-          <h5>
-            Designed and developed by <span>{portfolio.identity.name}</span>
-          </h5>
-          <p>{contact.closing}</p>
-          <span className="contact__copyright">© {year}</span>
+          <h5>{contact.closing}</h5>
+          <p>
+            Designed and developed by <span>{portfolio.identity.name}</span>.
+            Built to support both applications and client conversations.
+          </p>
+          <div className="contact__closing-meta">
+            <span>{portfolio.identity.availability}</span>
+            <span className="contact__copyright">© {year}</span>
+          </div>
         </div>
       </div>
     </section>

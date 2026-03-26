@@ -23,6 +23,11 @@ const Hero = () => {
       <div className="hero__stage hero__panel">
         <div className="hero__stage-lines hero__stage-lines--top" />
         <div className="hero__stage-lines hero__stage-lines--bottom" />
+        <div className="hero__beam hero__beam--left" />
+        <div className="hero__beam hero__beam--right" />
+        <div className="hero__floor" />
+        <div className="hero__floor-glow" />
+        <div className="hero__stage-shell" />
         <div className="hero__stage-rim" />
         <div className="hero__orb" />
         <div className="hero__atmosphere" />
@@ -47,6 +52,7 @@ const Hero = () => {
             <span />
             <span />
           </div>
+          <div className="hero__screen-reflection" />
           <div className="hero__screen-body">
             <div className="hero__screen-chip">Live build</div>
             <div className="hero__screen-line hero__screen-line--strong" />
@@ -57,7 +63,15 @@ const Hero = () => {
               <span>Frontend</span>
               <span>Delivery</span>
             </div>
+            <div className="hero__screen-grid">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
           </div>
+          <div className="hero__screen-noise" />
+          <div className="hero__screen-stand" />
         </div>
         <div className="hero__keyboard" />
       </div>

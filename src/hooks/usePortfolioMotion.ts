@@ -308,7 +308,15 @@ export const usePortfolioMotion = (enabled: boolean) => {
           0.18
         )
         .from(
-          [".hero__stage-rim", ".hero__orb", ".hero__atmosphere"],
+          [
+            ".hero__stage-shell",
+            ".hero__floor",
+            ".hero__floor-glow",
+            ".hero__beam",
+            ".hero__stage-rim",
+            ".hero__orb",
+            ".hero__atmosphere",
+          ],
           {
             autoAlpha: 0,
             scale: 0.7,
@@ -327,6 +335,8 @@ export const usePortfolioMotion = (enabled: boolean) => {
             ".hero__figure-chair",
             ".hero__desk",
             ".hero__screen",
+            ".hero__screen-stand",
+            ".hero__screen-reflection",
             ".hero__keyboard",
           ],
           {
@@ -370,6 +380,32 @@ export const usePortfolioMotion = (enabled: boolean) => {
           opacity: 0.78,
           scale: 1.08,
           duration: 4.2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        gsap.to(".hero__floor-glow", {
+          opacity: 0.9,
+          scaleX: 1.08,
+          duration: 3.8,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        gsap.to(".hero__screen-reflection", {
+          xPercent: 12,
+          opacity: 0.72,
+          duration: 3.6,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+
+        gsap.to(".hero__screen-noise", {
+          opacity: 0.16,
+          duration: 1.6,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
@@ -463,6 +499,16 @@ export const usePortfolioMotion = (enabled: boolean) => {
             .to(
               orb,
               { yPercent: -14, scale: 1.1, autoAlpha: 0.32, ease: "none" },
+              0
+            )
+            .to(
+              ".hero__stage-shell",
+              { scale: 0.86, autoAlpha: 0.2, ease: "none" },
+              0
+            )
+            .to(
+              ".hero__floor, .hero__floor-glow",
+              { yPercent: 14, autoAlpha: 0.2, ease: "none" },
               0
             )
             .to(
