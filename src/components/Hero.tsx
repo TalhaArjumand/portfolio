@@ -10,11 +10,11 @@ const Hero = () => {
   return (
     <section className="hero section" id="top">
       <div className="hero__intro">
-        <p className="hero__eyebrow">Hello! I'm</p>
+        <p className="hero__eyebrow hero__eyebrow--intro">Hello! I'm</p>
         <h1 className="hero__nameplate">
-          <span data-split="chars">{firstName}</span>
+          <span data-intro-split="chars">{firstName}</span>
           <br />
-          <span className="hero__nameplate-accent" data-split="chars">
+          <span className="hero__nameplate-accent" data-intro-split="chars">
             {remainingName}
           </span>
         </h1>
@@ -63,10 +63,10 @@ const Hero = () => {
       </div>
 
       <aside className="hero__info">
-        <p className="hero__eyebrow">{identity.location}</p>
+        <p className="hero__eyebrow hero__eyebrow--info">{identity.location}</p>
         <h2 className="hero__label">A Creative</h2>
         <RoleTicker roles={[...identity.rotatingRoles]} />
-        <p className="hero__summary" data-split="words">
+        <p className="hero__summary" data-intro-split="words">
           {identity.oneLiner}
         </p>
         <p className="hero__support">{identity.supportLine}</p>

@@ -9,6 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 const ProjectsRail = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const headlineRef = useRef<HTMLDivElement | null>(null);
+  const progressRef = useRef<HTMLSpanElement | null>(null);
 
   useLayoutEffect(() => {
     const reduceMotion = window.matchMedia(
@@ -21,24 +23,31 @@ const ProjectsRail = () => {
 
     const section = sectionRef.current;
     const track = trackRef.current;
+    const headline = headlineRef.current;
+    const progress = progressRef.current;
 
-    if (!section || !track) {
+    if (!section || !track || !headline || !progress) {
       return;
     }
 
     const context = gsap.context(() => {
-      const tween = gsap.to(track, {
-        x: () => {
-          const distance = Math.max(0, track.scrollWidth - section.clientWidth);
-          return -distance;
-        },
-        ease: "none",
+      const cards = gsap.utils.toArray<HTMLElement>(".project-card", section);
+      const previewFrames = gsap.utils.toArray<HTMLElement>(
+        ".project-card__preview-frame",
+        section
+      );
+      const infoBlocks = gsap.utils.toArray<HTMLElement>(
+        ".project-card__info",
+        section
+      );
+
+      const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
           end: () => {
             const distance = Math.max(0, track.scrollWidth - section.clientWidth);
-            return `+=${distance + window.innerHeight * 0.4}`;
+            return `+=${distance + window.innerHeight * 0.8}`;
           },
           pin: true,
           scrub: true,
@@ -47,8 +56,67 @@ const ProjectsRail = () => {
         },
       });
 
+      timeline
+        .to(
+          headline,
+          {
+            yPercent: -32,
+            autoAlpha: 0.18,
+            ease: "none",
+          },
+          0
+        )
+        .fromTo(
+          progress,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            ease: "none",
+          },
+          0
+        )
+        .to(
+          track,
+          {
+            x: () => {
+              const distance = Math.max(0, track.scrollWidth - section.clientWidth);
+              return -distance;
+            },
+            ease: "none",
+          },
+          0
+        )
+        .to(
+          cards,
+          {
+            y: (index) => (index % 2 === 0 ? -28 : 28),
+            ease: "none",
+            stagger: 0,
+          },
+          0
+        )
+        .to(
+          previewFrames,
+          {
+            y: (index) => (index % 2 === 0 ? -20 : 20),
+            rotate: (index) => (index % 2 === 0 ? -3 : 3),
+            ease: "none",
+            stagger: 0,
+          },
+          0
+        )
+        .to(
+          infoBlocks,
+          {
+            y: (index) => (index % 2 === 0 ? 16 : -16),
+            ease: "none",
+            stagger: 0,
+          },
+          0
+        );
+
       return () => {
-        tween.kill();
+        timeline.kill();
       };
     }, section);
 
@@ -57,7 +125,7 @@ const ProjectsRail = () => {
 
   return (
     <section className="projects section" id="work" ref={sectionRef}>
-      <div className="projects__headline">
+      <div className="projects__headline" ref={headlineRef}>
         <p className="projects__eyebrow" data-reveal>
           Selected work
         </p>
@@ -68,6 +136,9 @@ const ProjectsRail = () => {
           Interfaces, systems, and product surfaces designed to communicate
           clearly and feel immediate at first glance.
         </p>
+      </div>
+      <div className="projects__progress" aria-hidden="true">
+        <span className="projects__progress-fill" ref={progressRef} />
       </div>
 
       <div className="projects__rail">

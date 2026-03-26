@@ -47,10 +47,32 @@ export const usePortfolioMotion = (enabled: boolean) => {
       const rim = document.querySelector<HTMLElement>(".hero__stage-rim");
       const atmosphere =
         document.querySelector<HTMLElement>(".hero__atmosphere");
+      const introCharSplits: SplitType[] = [];
+      const introWordSplits: SplitType[] = [];
+
+      document
+        .querySelectorAll<HTMLElement>('[data-intro-split="chars"]')
+        .forEach((element) => {
+          const split = new SplitType(element, { types: "chars" });
+          splits.push(split);
+          introCharSplits.push(split);
+        });
+
+      document
+        .querySelectorAll<HTMLElement>('[data-intro-split="words"]')
+        .forEach((element) => {
+          const split = new SplitType(element, { types: "words" });
+          splits.push(split);
+          introWordSplits.push(split);
+        });
 
       document
         .querySelectorAll<HTMLElement>('[data-split="chars"]')
         .forEach((element) => {
+          if (element.dataset.introSplit) {
+            return;
+          }
+
           const split = new SplitType(element, { types: "chars" });
           splits.push(split);
 
@@ -75,6 +97,10 @@ export const usePortfolioMotion = (enabled: boolean) => {
       document
         .querySelectorAll<HTMLElement>('[data-split="words"]')
         .forEach((element) => {
+          if (element.dataset.introSplit) {
+            return;
+          }
+
           const split = new SplitType(element, { types: "words" });
           splits.push(split);
 
@@ -164,21 +190,6 @@ export const usePortfolioMotion = (enabled: boolean) => {
         });
 
       gsap.fromTo(
-        ".projects__headline",
-        { autoAlpha: 0, y: 34 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".projects",
-            start: "top 72%",
-          },
-        }
-      );
-
-      gsap.fromTo(
         ".nav-fade",
         { autoAlpha: 0 },
         {
@@ -193,20 +204,9 @@ export const usePortfolioMotion = (enabled: boolean) => {
         }
       );
 
-      gsap.fromTo(
-        ".band__item",
-        { autoAlpha: 0, y: 18 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.65,
-          ease: "power3.out",
-          delay: 0.45,
-          stagger: 0.06,
-        }
-      );
-
       const heroIntro = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const introChars = introCharSplits.flatMap((split) => split.chars ?? []);
+      const introWords = introWordSplits.flatMap((split) => split.words ?? []);
 
       heroIntro
         .from(
@@ -224,7 +224,7 @@ export const usePortfolioMotion = (enabled: boolean) => {
           y: -18,
           duration: 0.65,
           stagger: 0.08,
-        })
+        }, 0.08)
         .from(
           ".social-dock a",
           {
@@ -236,13 +236,27 @@ export const usePortfolioMotion = (enabled: boolean) => {
           0.18
         )
         .from(
-          ".hero__intro",
+          [".hero__eyebrow--intro", ".hero__eyebrow--info", ".hero__label"],
           {
             autoAlpha: 0,
-            x: -42,
-            duration: 0.9,
+            y: 26,
+            filter: "blur(4px)",
+            duration: 0.8,
+            stagger: 0.08,
           },
           0.22
+        )
+        .from(
+          introChars,
+          {
+            autoAlpha: 0,
+            yPercent: 118,
+            rotate: 5,
+            filter: "blur(5px)",
+            duration: 1.1,
+            stagger: 0.018,
+          },
+          0.28
         )
         .from(
           ".hero__info",
@@ -252,6 +266,36 @@ export const usePortfolioMotion = (enabled: boolean) => {
             duration: 0.9,
           },
           0.3
+        )
+        .from(
+          ".role-ticker__window",
+          {
+            autoAlpha: 0,
+            clipPath: "inset(0 0 100% 0)",
+            duration: 0.92,
+          },
+          0.46
+        )
+        .from(
+          introWords,
+          {
+            autoAlpha: 0,
+            y: 28,
+            filter: "blur(4px)",
+            duration: 0.8,
+            stagger: 0.045,
+          },
+          0.56
+        )
+        .from(
+          [".hero__support", ".hero__actions", ".hero__availability"],
+          {
+            autoAlpha: 0,
+            y: 18,
+            duration: 0.7,
+            stagger: 0.08,
+          },
+          0.68
         )
         .from(
           ".hero__stage",
