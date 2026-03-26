@@ -7,6 +7,7 @@ import { portfolio } from "../content/portfolio";
 gsap.registerPlugin(ScrollTrigger);
 
 const hasProjectHref = (href?: string) => Boolean(href && href !== "NEEDS_INPUT");
+const hasProjectImage = (image?: string) => Boolean(image);
 
 const ProjectsRail = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -145,53 +146,81 @@ const ProjectsRail = () => {
 
       <div className="projects__rail">
         <div className="projects__track" ref={trackRef}>
-          {portfolio.projects.map((project, index) => (
+          {portfolio.projects.map((project) => (
             <article
-              className={`project-card ${index % 2 === 1 ? "project-card--reverse" : ""}`}
+              className="project-card"
               data-project-card
               key={project.index}
               style={{ ["--project-accent" as string]: project.accent }}
             >
               <div className="project-card__body">
-                <div className="project-card__info">
-                  <div className="project-card__header">
-                    <span className="project-card__index">{project.index}</span>
-                    <div className="project-card__title-wrap">
-                      <h3>{project.title}</h3>
-                      <p>{project.category}</p>
-                    </div>
+                <div className="project-card__header project-card__info">
+                  <span className="project-card__index">{project.index}</span>
+                  <div className="project-card__title-wrap">
+                    <p>{project.category}</p>
+                    <h3>{project.title}</h3>
                   </div>
-                  <div className="project-card__meta">
-                    <h4>Tools and features</h4>
-                    <p>{project.stack.join(", ")}</p>
-                  </div>
-                  <p className="project-card__summary">{project.summary}</p>
-                  <p className="project-card__outcome">{project.outcome}</p>
                 </div>
 
                 <div className="project-card__preview">
                   <div className="project-card__preview-stage">
                     <div className="project-card__preview-glow" />
-                    <div className="project-card__preview-frame">
-                      <div className="project-card__preview-panel">
-                        <div className="project-card__preview-bar" />
-                        <div className="project-card__preview-block project-card__preview-block--one" />
-                        <div className="project-card__preview-grid">
-                          <div className="project-card__preview-block project-card__preview-block--two" />
-                          <div className="project-card__preview-block project-card__preview-block--three" />
+                    <div
+                      className={`project-card__preview-frame ${
+                        hasProjectImage(project.image)
+                          ? "project-card__preview-frame--image"
+                          : ""
+                      }`}
+                    >
+                      {hasProjectImage(project.image) ? (
+                        <>
+                          <img
+                            className="project-card__image"
+                            src={project.image}
+                            alt={`${project.title} project visual`}
+                            loading="lazy"
+                          />
+                          <div className="project-card__image-overlay" />
+                        </>
+                      ) : (
+                        <div className="project-card__preview-panel">
+                          <div className="project-card__preview-bar" />
+                          <div className="project-card__preview-block project-card__preview-block--one" />
+                          <div className="project-card__preview-grid">
+                            <div className="project-card__preview-block project-card__preview-block--two" />
+                            <div className="project-card__preview-block project-card__preview-block--three" />
+                          </div>
+                          <div className="project-card__preview-strip">
+                            <span />
+                            <span />
+                            <span />
+                          </div>
                         </div>
-                        <div className="project-card__preview-strip">
-                          <span />
-                          <span />
-                          <span />
-                        </div>
-                      </div>
+                      )}
                       {hasProjectHref(project.href) ? (
                         <span className="project-card__preview-link" aria-hidden="true">
                           <FiArrowUpRight />
                         </span>
                       ) : null}
                     </div>
+                  </div>
+                </div>
+
+                <div className="project-card__info project-card__info--details">
+                  <div className="project-card__meta">
+                    <h4>Core stack</h4>
+                    <div className="project-card__stack">
+                      {project.stack.map((item) => (
+                        <span className="project-card__stack-chip" key={item}>
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="project-card__summary">{project.summary}</p>
+                  <div className="project-card__impact">
+                    <span>Impact</span>
+                    <p>{project.outcome}</p>
                   </div>
                 </div>
               </div>

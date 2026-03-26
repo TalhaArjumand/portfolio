@@ -17,6 +17,7 @@ export type Project = {
   outcome: string;
   stack: string[];
   accent: string;
+  image?: string;
   href?: string;
 };
 
@@ -69,6 +70,7 @@ const projects: Project[] = [
       "Enabled same-day aid processing, typically within 6 hours, while reducing manual reconciliation effort by approximately 60%.",
     stack: ["Node.js", "Hyperledger Besu", "RabbitMQ", "Flutter"],
     accent: "#d2a76b",
+    image: "/project-images/aidchain.png",
   },
   {
     index: "02",
@@ -80,6 +82,7 @@ const projects: Project[] = [
       "Reduced expert assignment turnaround by approximately 45% and improved booking completion by approximately 18%.",
     stack: ["React", "Node.js", "PostgreSQL", "Prisma"],
     accent: "#8cbfa8",
+    image: "/project-images/brivion.png",
   },
   {
     index: "03",
@@ -91,6 +94,7 @@ const projects: Project[] = [
       "Automated 8 recurring workflows and reduced manual coordination across internal and client-facing processes.",
     stack: ["Python", "Node.js", "PostgreSQL", "Docker"],
     accent: "#8fa7d8",
+    image: "/project-images/ai-workflow-platform.png",
   },
 ];
 
