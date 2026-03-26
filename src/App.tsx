@@ -31,27 +31,29 @@ const App = () => {
       <div className="nav-fade" />
 
       <header className="topbar">
-        <a className="topbar__brand hover-link" href="#top">
+        <a className="topbar__brand hover-link" href="#top" data-cursor="disable">
           <span className="hover-in">
             <span>Portfolio</span>
             <div>Portfolio</div>
           </span>
         </a>
-        <p className="topbar__connect">{portfolio.contact.email}</p>
+        <p className="topbar__connect" data-cursor="disable">
+          {portfolio.contact.email}
+        </p>
         <nav className="topbar__nav">
-          <a className="hover-link" href="#about">
+          <a className="hover-link" data-href="#about" href="#about">
             <span className="hover-in">
               <span>About</span>
               <div>About</div>
             </span>
           </a>
-          <a className="hover-link" href="#work">
+          <a className="hover-link" data-href="#work" href="#work">
             <span className="hover-in">
               <span>Work</span>
               <div>Work</div>
             </span>
           </a>
-          <a className="hover-link" href="#contact">
+          <a className="hover-link" data-href="#contact" href="#contact">
             <span className="hover-in">
               <span>Contact</span>
               <div>Contact</div>
@@ -62,15 +64,19 @@ const App = () => {
 
       <SocialDock />
 
-      <main className="page">
-        <Hero />
-        <About />
-        <Capabilities />
-        <Experience />
-        <ProjectsRail />
-        <TechStack />
-        <Contact />
-      </main>
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <main className="page">
+            <Hero />
+            <About />
+            <Capabilities />
+            <Experience />
+            <ProjectsRail />
+            <TechStack />
+            <Contact />
+          </main>
+        </div>
+      </div>
     </div>
   );
 };

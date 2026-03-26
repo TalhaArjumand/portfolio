@@ -23,26 +23,42 @@ const SocialDock = () => {
         return () => undefined;
       }
 
-      const handlePointerMove = (event: PointerEvent) => {
-        const bounds = item.getBoundingClientRect();
-        const x = event.clientX - bounds.left - bounds.width / 2;
-        const y = event.clientY - bounds.top - bounds.height / 2;
+      const bounds = item.getBoundingClientRect();
+      let mouseX = bounds.width / 2;
+      let mouseY = bounds.height / 2;
+      let currentX = 0;
+      let currentY = 0;
+      let frame = 0;
 
-        anchor.style.setProperty("--dock-x", `${x * 0.24}px`);
-        anchor.style.setProperty("--dock-y", `${y * 0.24}px`);
+      const updatePosition = () => {
+        currentX += (mouseX - currentX) * 0.1;
+        currentY += (mouseY - currentY) * 0.1;
+
+        anchor.style.setProperty("--dock-x", `${currentX - bounds.width / 2}px`);
+        anchor.style.setProperty("--dock-y", `${currentY - bounds.height / 2}px`);
+
+        frame = window.requestAnimationFrame(updatePosition);
       };
 
-      const reset = () => {
-        anchor.style.setProperty("--dock-x", "0px");
-        anchor.style.setProperty("--dock-y", "0px");
+      const handleMouseMove = (event: MouseEvent) => {
+        const x = event.clientX - bounds.left;
+        const y = event.clientY - bounds.top;
+
+        if (x < 40 && x > 10 && y < 40 && y > 5) {
+          mouseX = x;
+          mouseY = y;
+        } else {
+          mouseX = bounds.width / 2;
+          mouseY = bounds.height / 2;
+        }
       };
 
-      item.addEventListener("pointermove", handlePointerMove);
-      item.addEventListener("pointerleave", reset);
+      document.addEventListener("mousemove", handleMouseMove);
+      frame = window.requestAnimationFrame(updatePosition);
 
       return () => {
-        item.removeEventListener("pointermove", handlePointerMove);
-        item.removeEventListener("pointerleave", reset);
+        window.cancelAnimationFrame(frame);
+        document.removeEventListener("mousemove", handleMouseMove);
       };
     });
 
@@ -52,8 +68,8 @@ const SocialDock = () => {
   }, []);
 
   return (
-    <aside className="social-dock" aria-label="Social links">
-      <div className="social-dock__rail">
+    <aside className="social-dock icons-section" aria-label="Social links">
+      <div className="social-dock__rail" data-cursor="icons" id="social">
         <span
           className="social-dock__item"
           ref={(node) => {

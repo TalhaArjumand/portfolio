@@ -171,6 +171,7 @@ const ProjectsRail = () => {
                           ? "project-card__preview-frame--image"
                           : ""
                       }`}
+                      data-cursor="disable"
                     >
                       {hasProjectImage(project.image) ? (
                         <>

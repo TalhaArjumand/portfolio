@@ -29,11 +29,15 @@ const Contact = () => {
         <div className="contact-column" data-reveal>
           <h4>Email</h4>
           <p>
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            <a data-cursor="disable" href={`mailto:${contact.email}`}>
+              {contact.email}
+            </a>
           </p>
           <h4>Phone</h4>
           <p>
-            <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+            <a data-cursor="disable" href={`tel:${contact.phone}`}>
+              {contact.phone}
+            </a>
           </p>
         </div>
         <div className="contact-column" data-reveal>
@@ -41,6 +45,7 @@ const Contact = () => {
           {socialLinks.map((link) => (
             <a
               className="contact-social"
+              data-cursor="disable"
               href={link.href}
               key={link.label}
               rel={link.href.startsWith("http") ? "noreferrer" : undefined}

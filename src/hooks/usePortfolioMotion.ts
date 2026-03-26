@@ -36,6 +36,43 @@ export const usePortfolioMotion = (enabled: boolean) => {
     lenis.on("scroll", ScrollTrigger.update);
     animationFrame = window.requestAnimationFrame(update);
 
+    const navLinks = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>(".topbar__nav a[data-href]")
+    );
+    const brandLink = document.querySelector<HTMLAnchorElement>(".topbar__brand");
+
+    const handleNavClick = (event: Event) => {
+      if (window.innerWidth <= 1024) {
+        return;
+      }
+
+      event.preventDefault();
+      const anchor = event.currentTarget as HTMLAnchorElement;
+      const section = anchor.dataset.href;
+
+      if (!section) {
+        return;
+      }
+
+      lenis.scrollTo(section, {
+        duration: 1.25,
+      });
+    };
+
+    const handleBrandClick = (event: Event) => {
+      if (window.innerWidth <= 1024) {
+        return;
+      }
+
+      event.preventDefault();
+      lenis.scrollTo(0, { duration: 1.1 });
+    };
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", handleNavClick);
+    });
+    brandLink?.addEventListener("click", handleBrandClick);
+
     const splits: SplitType[] = [];
 
     const context = gsap.context(() => {
@@ -527,6 +564,10 @@ export const usePortfolioMotion = (enabled: boolean) => {
 
     return () => {
       window.cancelAnimationFrame(animationFrame);
+      navLinks.forEach((link) => {
+        link.removeEventListener("click", handleNavClick);
+      });
+      brandLink?.removeEventListener("click", handleBrandClick);
       lenis.destroy();
       context.revert();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
