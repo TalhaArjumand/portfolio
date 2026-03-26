@@ -209,6 +209,16 @@ export const usePortfolioMotion = (enabled: boolean) => {
       const heroIntro = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       heroIntro
+        .from(
+          ".page-shell__circle",
+          {
+            autoAlpha: 0,
+            scale: 0.7,
+            duration: 0.9,
+            stagger: 0.12,
+          },
+          0
+        )
         .from(".topbar > *", {
           autoAlpha: 0,
           y: -18,

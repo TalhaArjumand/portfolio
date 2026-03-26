@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Cursor from "./components/Cursor";
 import Hero from "./components/Hero";
-import CredibilityStrip from "./components/CredibilityStrip";
 import ProjectsRail from "./components/ProjectsRail";
 import Capabilities from "./components/Capabilities";
 import Experience from "./components/Experience";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import SocialDock from "./components/SocialDock";
+import TechStack from "./components/TechStack";
 import LoadingScreen from "./components/LoadingScreen";
 import { portfolio } from "./content/portfolio";
 import { usePortfolioMotion } from "./hooks/usePortfolioMotion";
@@ -25,6 +25,8 @@ const App = () => {
       <Cursor />
       <div className="page-shell__blur page-shell__blur--one" />
       <div className="page-shell__blur page-shell__blur--two" />
+      <div className="page-shell__circle page-shell__circle--left" />
+      <div className="page-shell__circle page-shell__circle--right" />
       <div className="page-shell__grid" />
       <div className="nav-fade" />
 
@@ -66,7 +68,7 @@ const App = () => {
         <Capabilities />
         <Experience />
         <ProjectsRail />
-        <CredibilityStrip />
+        <TechStack />
         <Contact />
       </main>
     </div>
