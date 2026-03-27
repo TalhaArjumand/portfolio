@@ -2,101 +2,75 @@ import { portfolio } from "../content/portfolio";
 import RoleTicker from "./RoleTicker";
 
 const Hero = () => {
-  const { identity } = portfolio;
+  const { identity, projects } = portfolio;
   const parts = identity.name.trim().split(/\s+/);
   const firstName = parts[0] ?? "Your";
   const remainingName = parts.slice(1).join(" ") || "Name";
+  const heroRoles = ["Engineer", "Systems", "Automation"];
+  const heroVisual = projects[0];
 
   return (
     <section className="hero section" id="top">
-      <div className="hero__intro">
-        <p className="hero__eyebrow hero__eyebrow--intro">Hello! I'm</p>
-        <h1 className="hero__nameplate">
-          <span data-intro-split="chars">{firstName}</span>
-          <br />
-          <span className="hero__nameplate-accent" data-intro-split="chars">
-            {remainingName}
-          </span>
-        </h1>
+      <div className="hero__media" aria-hidden="true">
+        <figure className="hero__media-layer hero__media-layer--base">
+          <img
+            className="hero__media-image"
+            src={heroVisual.image}
+            alt=""
+          />
+        </figure>
+        <div className="hero__media-scrim hero__media-scrim--base" />
+        <div className="hero__media-scrim hero__media-scrim--left" />
+        <div className="hero__media-scrim hero__media-scrim--bottom" />
       </div>
 
-      <div className="hero__stage hero__panel">
-        <div className="hero__stage-lines hero__stage-lines--top" />
-        <div className="hero__stage-lines hero__stage-lines--bottom" />
-        <div className="hero__beam hero__beam--left" />
-        <div className="hero__beam hero__beam--right" />
-        <div className="hero__floor" />
-        <div className="hero__floor-glow" />
-        <div className="hero__stage-shell" />
-        <div className="hero__stage-rim" />
-        <div className="hero__orb" />
-        <div className="hero__atmosphere" />
-        <div className="hero__figure">
-          <div className="hero__figure-head" />
-          <div className="hero__figure-neck" />
-          <div className="hero__figure-body" />
-          <div className="hero__figure-arm hero__figure-arm--left" />
-          <div className="hero__figure-arm hero__figure-arm--right" />
-          <div className="hero__figure-leg hero__figure-leg--left" />
-          <div className="hero__figure-leg hero__figure-leg--right" />
-          <div className="hero__figure-chair" />
-        </div>
-        <div className="hero__desk">
-          <div className="hero__desk-top" />
-          <div className="hero__desk-leg hero__desk-leg--left" />
-          <div className="hero__desk-leg hero__desk-leg--right" />
-        </div>
-        <div className="hero__screen">
-          <div className="hero__screen-bar">
-            <span />
-            <span />
-            <span />
-          </div>
-          <div className="hero__screen-reflection" />
-          <div className="hero__screen-body">
-            <div className="hero__screen-chip">Live build</div>
-            <div className="hero__screen-line hero__screen-line--strong" />
-            <div className="hero__screen-line" />
-            <div className="hero__screen-line hero__screen-line--short" />
-            <div className="hero__screen-tags">
-              <span>UI Systems</span>
-              <span>Frontend</span>
-              <span>Delivery</span>
-            </div>
-            <div className="hero__screen-grid">
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
-          </div>
-          <div className="hero__screen-noise" />
-          <div className="hero__screen-stand" />
-        </div>
-        <div className="hero__keyboard" />
-      </div>
-
-      <aside className="hero__info">
-        <p className="hero__eyebrow hero__eyebrow--info">{identity.location}</p>
-        <h2 className="hero__label">A Creative</h2>
-        <RoleTicker roles={[...identity.rotatingRoles]} />
-        <p className="hero__summary" data-intro-split="words">
-          {identity.oneLiner}
-        </p>
-        <p className="hero__support">{identity.supportLine}</p>
-        <div className="hero__actions">
-          {identity.ctas.map((cta, index) => (
-            <a
-              className={`button ${index === 0 ? "button--solid" : "button--ghost"}`}
-              href={cta.href}
-              key={cta.label}
+      <div className="hero__container">
+        <div className="hero__intro">
+          <p className="hero__eyebrow hero__eyebrow--intro">Software Engineer</p>
+          <h1 className="hero__nameplate">
+            <span className="hero__name-line" data-intro-split="chars">
+              {firstName}
+            </span>
+            <span
+              className="hero__name-line hero__nameplate-accent"
+              data-intro-split="chars"
             >
-              {cta.label}
-            </a>
-          ))}
+              {remainingName}
+            </span>
+          </h1>
+
+          <div className="hero__identity">
+            <p className="hero__role-prefix">AI Full-Stack</p>
+            <div className="hero__role-main">
+              <RoleTicker roles={heroRoles} />
+            </div>
+          </div>
+
+          <p className="hero__summary" data-intro-split="words">
+            I build backend systems, AI workflows, and production web products
+            teams can actually run.
+          </p>
+
+          <div className="hero__actions">
+            {identity.ctas.map((cta, index) => (
+              <a
+                className={`button ${index === 0 ? "button--solid" : "button--ghost"}`}
+                href={cta.href}
+                key={cta.label}
+              >
+                {cta.label}
+              </a>
+            ))}
+          </div>
         </div>
-        <div className="hero__availability">{identity.availability}</div>
-      </aside>
+
+        <a className="hero__scroll-cue" href="#work">
+          <span className="hero__scroll-copy">Scroll</span>
+          <span className="hero__scroll-track">
+            <span className="hero__scroll-dot" />
+          </span>
+        </a>
+      </div>
     </section>
   );
 };

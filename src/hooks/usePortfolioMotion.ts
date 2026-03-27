@@ -42,7 +42,7 @@ export const usePortfolioMotion = (enabled: boolean) => {
     const brandLink = document.querySelector<HTMLAnchorElement>(".topbar__brand");
 
     const handleNavClick = (event: Event) => {
-      if (window.innerWidth <= 1024) {
+      if (window.matchMedia("(max-width: 1024px)").matches) {
         return;
       }
 
@@ -60,7 +60,7 @@ export const usePortfolioMotion = (enabled: boolean) => {
     };
 
     const handleBrandClick = (event: Event) => {
-      if (window.innerWidth <= 1024) {
+      if (window.matchMedia("(max-width: 1024px)").matches) {
         return;
       }
 
@@ -77,13 +77,8 @@ export const usePortfolioMotion = (enabled: boolean) => {
 
     const context = gsap.context(() => {
       const hero = document.querySelector<HTMLElement>(".hero");
-      const stage = document.querySelector<HTMLElement>(".hero__stage");
-      const figure = document.querySelector<HTMLElement>(".hero__figure");
-      const screen = document.querySelector<HTMLElement>(".hero__screen");
-      const orb = document.querySelector<HTMLElement>(".hero__orb");
-      const rim = document.querySelector<HTMLElement>(".hero__stage-rim");
-      const atmosphere =
-        document.querySelector<HTMLElement>(".hero__atmosphere");
+      const heroMedia = document.querySelector<HTMLElement>(".hero__media");
+      const heroMediaImages = gsap.utils.toArray<HTMLElement>(".hero__media-image");
       const introCharSplits: SplitType[] = [];
       const introWordSplits: SplitType[] = [];
 
@@ -246,16 +241,6 @@ export const usePortfolioMotion = (enabled: boolean) => {
       const introWords = introWordSplits.flatMap((split) => split.words ?? []);
 
       heroIntro
-        .from(
-          ".page-shell__circle",
-          {
-            autoAlpha: 0,
-            scale: 0.7,
-            duration: 0.9,
-            stagger: 0.12,
-          },
-          0
-        )
         .from(".topbar > *", {
           autoAlpha: 0,
           y: -18,
@@ -273,7 +258,7 @@ export const usePortfolioMotion = (enabled: boolean) => {
           0.18
         )
         .from(
-          [".hero__eyebrow--intro", ".hero__eyebrow--info", ".hero__label"],
+          [".hero__eyebrow--intro", ".hero__role-prefix"],
           {
             autoAlpha: 0,
             y: 26,
@@ -296,20 +281,21 @@ export const usePortfolioMotion = (enabled: boolean) => {
           0.28
         )
         .from(
-          ".hero__info",
+          ".hero__identity",
           {
             autoAlpha: 0,
-            x: 34,
+            y: 18,
             duration: 0.9,
           },
           0.3
         )
         .from(
-          ".role-ticker__window",
+          ".hero__role-main",
           {
             autoAlpha: 0,
             clipPath: "inset(0 0 100% 0)",
-            duration: 0.92,
+            y: 22,
+            duration: 0.9,
           },
           0.46
         )
@@ -325,240 +311,77 @@ export const usePortfolioMotion = (enabled: boolean) => {
           0.56
         )
         .from(
-          [".hero__support", ".hero__actions", ".hero__availability"],
+          ".hero__actions",
           {
             autoAlpha: 0,
             y: 18,
             duration: 0.7,
-            stagger: 0.08,
           },
           0.68
         )
         .from(
-          ".hero__stage",
+          ".hero__media",
           {
             autoAlpha: 0,
-            y: 48,
-            scale: 0.94,
-            duration: 1.05,
+            scale: 1.06,
+            duration: 1.25,
           },
-          0.18
+          0.12
         )
         .from(
-          [
-            ".hero__stage-shell",
-            ".hero__floor",
-            ".hero__floor-glow",
-            ".hero__beam",
-            ".hero__stage-rim",
-            ".hero__orb",
-            ".hero__atmosphere",
-          ],
+          ".hero__scroll-cue",
           {
             autoAlpha: 0,
-            scale: 0.7,
-            duration: 1,
-            stagger: 0.1,
+            y: 16,
+            duration: 0.7,
           },
-          0.22
-        )
-        .from(
-          [
-            ".hero__figure-head",
-            ".hero__figure-neck",
-            ".hero__figure-body",
-            ".hero__figure-arm",
-            ".hero__figure-leg",
-            ".hero__figure-chair",
-            ".hero__desk",
-            ".hero__screen",
-            ".hero__screen-stand",
-            ".hero__screen-reflection",
-            ".hero__keyboard",
-          ],
-          {
-            autoAlpha: 0,
-            y: 26,
-            duration: 0.85,
-            stagger: 0.04,
-          },
-          0.4
+          0.78
         );
 
-      if (figure && screen && orb && rim && atmosphere) {
-        gsap.to(figure, {
-          y: -10,
-          duration: 3.8,
+      heroMediaImages.forEach((image, index) => {
+        gsap.to(image, {
+          yPercent: index % 2 === 0 ? -3 : 3,
+          xPercent: index % 2 === 0 ? 2 : -2,
+          duration: 14 + index * 2,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
         });
+      });
 
-        gsap.to(screen, {
-          y: -7,
-          rotation: -1.2,
-          duration: 3.2,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
+      gsap.to(".hero__scroll-dot", {
+        y: 12,
+        autoAlpha: 0.25,
+        duration: 1.1,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+      });
 
-        gsap.to(orb, {
-          y: -10,
-          x: 10,
-          scale: 1.03,
-          duration: 4.6,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        gsap.to(atmosphere, {
-          opacity: 0.78,
-          scale: 1.08,
-          duration: 4.2,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        gsap.to(".hero__floor-glow", {
-          opacity: 0.9,
-          scaleX: 1.08,
-          duration: 3.8,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        gsap.to(".hero__screen-reflection", {
-          xPercent: 12,
-          opacity: 0.72,
-          duration: 3.6,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        gsap.to(".hero__screen-noise", {
-          opacity: 0.16,
-          duration: 1.6,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        if (stage) {
-          const figureX = gsap.quickTo(figure, "x", {
-            duration: 0.6,
-            ease: "power3.out",
-          });
-          const figureY = gsap.quickTo(figure, "y", {
-            duration: 0.6,
-            ease: "power3.out",
-          });
-          const screenX = gsap.quickTo(screen, "x", {
-            duration: 0.65,
-            ease: "power3.out",
-          });
-          const screenY = gsap.quickTo(screen, "y", {
-            duration: 0.65,
-            ease: "power3.out",
-          });
-          const orbX = gsap.quickTo(orb, "x", {
-            duration: 0.9,
-            ease: "power3.out",
-          });
-          const orbY = gsap.quickTo(orb, "y", {
-            duration: 0.9,
-            ease: "power3.out",
-          });
-          const rimX = gsap.quickTo(rim, "x", {
-            duration: 0.9,
-            ease: "power3.out",
-          });
-
-          const handlePointerMove = (event: PointerEvent) => {
-            const bounds = stage.getBoundingClientRect();
-            const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-            const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-
-            figureX(x * 18);
-            figureY(y * 14);
-            screenX(x * 12);
-            screenY(y * 10);
-            orbX(x * -26);
-            orbY(y * -18);
-            rimX(x * -16);
-          };
-
-          const handlePointerLeave = () => {
-            figureX(0);
-            figureY(0);
-            screenX(0);
-            screenY(0);
-            orbX(0);
-            orbY(0);
-            rimX(0);
-          };
-
-          stage.addEventListener("pointermove", handlePointerMove);
-          stage.addEventListener("pointerleave", handlePointerLeave);
-
-          gsap.timeline({
-            scrollTrigger: {
-              trigger: hero,
-              start: "top top",
-              end: "bottom top",
-              scrub: true,
-            },
-          })
-            .to(
-              ".hero__intro",
-              { yPercent: -24, autoAlpha: 0.15, ease: "none" },
-              0
-            )
-            .to(
-              ".hero__info",
-              { yPercent: -16, autoAlpha: 0.16, ease: "none" },
-              0
-            )
-            .to(
-              figure,
-              { yPercent: -22, xPercent: 7, scale: 0.92, ease: "none" },
-              0
-            )
-            .to(
-              screen,
-              { yPercent: -12, xPercent: -8, rotate: -5, ease: "none" },
-              0
-            )
-            .to(
-              orb,
-              { yPercent: -14, scale: 1.1, autoAlpha: 0.32, ease: "none" },
-              0
-            )
-            .to(
-              ".hero__stage-shell",
-              { scale: 0.86, autoAlpha: 0.2, ease: "none" },
-              0
-            )
-            .to(
-              ".hero__floor, .hero__floor-glow",
-              { yPercent: 14, autoAlpha: 0.2, ease: "none" },
-              0
-            )
-            .to(
-              rim,
-              { scale: 0.72, autoAlpha: 0.22, ease: "none" },
-              0
-            );
-
-          return () => {
-            stage.removeEventListener("pointermove", handlePointerMove);
-            stage.removeEventListener("pointerleave", handlePointerLeave);
-          };
-        }
+      if (heroMedia && hero) {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: hero,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        })
+          .to(
+            ".hero__intro",
+            { yPercent: -12, autoAlpha: 0.2, ease: "none" },
+            0
+          )
+          .to(
+            heroMedia,
+            { yPercent: -4, scale: 1.02, ease: "none" },
+            0
+          )
+          .to(
+            ".hero__scroll-cue",
+            { autoAlpha: 0, y: 16, ease: "none" },
+            0
+          );
       }
     });
 

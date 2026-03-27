@@ -25,8 +25,6 @@ const App = () => {
       <Cursor />
       <div className="page-shell__blur page-shell__blur--one" />
       <div className="page-shell__blur page-shell__blur--two" />
-      <div className="page-shell__circle page-shell__circle--left" />
-      <div className="page-shell__circle page-shell__circle--right" />
       <div className="page-shell__grid" />
       <div className="nav-fade" />
 
