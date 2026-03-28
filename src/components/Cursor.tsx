@@ -19,10 +19,15 @@ const Cursor = () => {
     const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const position = { x: mouse.x, y: mouse.y };
     let frame = 0;
+    const resetCursorGeometry = () => {
+      cursor.style.removeProperty("--cursor-w");
+      cursor.style.removeProperty("--cursor-h");
+    };
 
     const setState = (target: HTMLElement | null) => {
       cursor.classList.remove("cursor--active", "cursor--icons", "cursor--disabled");
       locked = false;
+      resetCursorGeometry();
 
       if (!target) {
         return;
@@ -33,10 +38,17 @@ const Cursor = () => {
       if (cursorTarget?.dataset.cursor === "icons") {
         const rect = cursorTarget.getBoundingClientRect();
         cursor.classList.add("cursor--icons");
-        cursor.style.setProperty("--cursorH", `${rect.height}px`);
+        cursor.style.setProperty(
+          "--cursor-w",
+          `${Math.max(30, Math.round(rect.width - 8))}px`
+        );
+        cursor.style.setProperty(
+          "--cursor-h",
+          `${Math.max(30, Math.round(rect.height - 8))}px`
+        );
         gsap.to(cursor, {
-          x: rect.left + 10,
-          y: rect.top + 10,
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
           duration: 0.14,
           ease: "power2.out",
         });

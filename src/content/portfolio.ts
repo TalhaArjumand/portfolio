@@ -15,6 +15,8 @@ export type Project = {
   title: string;
   summary: string;
   outcome: string;
+  railSummary?: string;
+  railOutcome?: string;
   stack: string[];
   accent: string;
   image?: string;
@@ -33,6 +35,16 @@ export type Principle = {
   description: string;
 };
 
+export type TechStackItem = {
+  label: string;
+  short: string;
+  accent: string;
+  logoKey?: string;
+};
+
+// Horizontal rail copy is scan-first, not full case-study copy.
+// Keep description to one short sentence, ideally <= 112 chars.
+// Keep impact to one short sentence, ideally <= 92 chars.
 const ctas: LinkItem[] = [
   { label: "View Selected Work", href: "#work" },
   { label: "Start A Conversation", href: "#contact" },
@@ -68,6 +80,10 @@ const projects: Project[] = [
       "Led the architecture and delivery of a funded humanitarian aid distribution platform spanning backend APIs, blockchain infrastructure, NGO and admin web apps, and beneficiary and vendor mobile experiences. Built queue-driven disbursement workflows, smart-contract-linked settlement logic, and end-to-end operational traceability.",
     outcome:
       "Enabled same-day aid processing, typically within 6 hours, while reducing manual reconciliation effort by approximately 60%.",
+    railSummary:
+      "Built a blockchain-backed aid platform with queue-driven disbursement across NGO, admin, and mobile surfaces.",
+    railOutcome:
+      "Same-day aid processing in about 6 hours with reconciliation effort reduced by roughly 60%.",
     stack: ["Node.js", "Hyperledger Besu", "RabbitMQ", "Flutter"],
     accent: "#d2a76b",
     image: "/project-images/aidchain.png",
@@ -80,6 +96,10 @@ const projects: Project[] = [
       "Architected and delivered a full-stack AI consultation marketplace with 3-role RBAC, multi-step booking, a public expert directory, analytics dashboards, and an asynchronous expert-matching engine with admin review safeguards.",
     outcome:
       "Reduced expert assignment turnaround by approximately 45% and improved booking completion by approximately 18%.",
+    railSummary:
+      "Built an AI consultation marketplace with RBAC, booking, expert discovery, and async matching workflows.",
+    railOutcome:
+      "Expert assignment time cut by roughly 45% and booking completion improved by about 18%.",
     stack: ["React", "Node.js", "PostgreSQL", "Prisma"],
     accent: "#8cbfa8",
     image: "/project-images/brivion.png",
@@ -92,6 +112,10 @@ const projects: Project[] = [
       "Built an event-driven automation layer that connected internal tools and operational workflows with AI-assisted routing, retry-safe webhook processing, and monitoring for reliable day-to-day execution.",
     outcome:
       "Automated 8 recurring workflows and reduced manual coordination across internal and client-facing processes.",
+    railSummary:
+      "Built an AI automation layer with routing, retry-safe webhooks, and monitoring for client workflows.",
+    railOutcome:
+      "Automated 8 recurring workflows and reduced manual coordination across teams and operations.",
     stack: ["Python", "Node.js", "PostgreSQL", "Docker"],
     accent: "#8fa7d8",
     image: "/project-images/ai-workflow-platform.png",
@@ -140,12 +164,33 @@ const principles: Principle[] = [
   },
 ];
 
+const techStack: TechStackItem[] = [
+  { label: "Python", short: "PY", accent: "#3776ab", logoKey: "python" },
+  { label: "Hyperledger Besu", short: "BESU", accent: "#54d9b6" },
+  { label: "React", short: "REACT", accent: "#61dafb", logoKey: "react" },
+  { label: "JavaScript", short: "JS", accent: "#f7df1e", logoKey: "javascript" },
+  { label: "TensorFlow", short: "TF", accent: "#ff6f00", logoKey: "tensorflow" },
+  { label: "SQL", short: "SQL", accent: "#8a96a8", logoKey: "sql" },
+  { label: "PostgreSQL", short: "PG", accent: "#336791", logoKey: "postgresql" },
+  { label: "CrewAI", short: "CREW", accent: "#f0b94d", logoKey: "crewai" },
+  { label: "AutoGen", short: "AG", accent: "#a78bfa" },
+  { label: "MCP", short: "MCP", accent: "#4ade80" },
+  { label: "Codex", short: "CX", accent: "#f3ecf8", logoKey: "codex" },
+  { label: "Claude", short: "CLD", accent: "#f59e0b", logoKey: "claude" },
+  { label: "OpenAI API", short: "OAI", accent: "#10a37f", logoKey: "openai" },
+  { label: "ChatGPT", short: "GPT", accent: "#74aa9c", logoKey: "chatgpt" },
+];
+
 const contactLinks: LinkItem[] = [
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/talha-arjumand-49703220a/",
   },
   { label: "GitHub", href: "https://github.com/TalhaArjumand" },
+  {
+    label: "Upwork",
+    href: "https://www.upwork.com/freelancers/~0104edeaa658cb3b42?companyReference=2006740766894480426&mp_source=share",
+  },
   { label: "Resume", href: "NEEDS_INPUT" },
 ];
 
@@ -175,6 +220,7 @@ export const portfolio = {
   capabilities,
   projects,
   experience,
+  techStack,
   about: {
     paragraphs: [
       "I work at the intersection of full-stack product delivery, backend systems, and applied AI. My strongest work is backend-first: designing APIs, shaping data flows, orchestrating async jobs, and building the technical foundations that make products reliable in production.",

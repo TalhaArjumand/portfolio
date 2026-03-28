@@ -33,7 +33,18 @@ export const usePortfolioMotion = (enabled: boolean) => {
       animationFrame = window.requestAnimationFrame(update);
     };
 
-    lenis.on("scroll", ScrollTrigger.update);
+    lenis.on("scroll", (instance) => {
+      ScrollTrigger.update();
+      window.dispatchEvent(
+        new CustomEvent("portfolio:lenis-scroll", {
+          detail: {
+            limit: instance.limit,
+            progress: instance.progress,
+            scroll: instance.scroll,
+          },
+        })
+      );
+    });
     animationFrame = window.requestAnimationFrame(update);
 
     const navLinks = Array.from(
@@ -77,10 +88,13 @@ export const usePortfolioMotion = (enabled: boolean) => {
 
     const context = gsap.context(() => {
       const hero = document.querySelector<HTMLElement>(".hero");
-      const heroMedia = document.querySelector<HTMLElement>(".hero__media");
+      gsap.set(".social-dock, .social-dock__rail, .social-dock__icon", {
+        clearProps: "all",
+      });
       const heroMediaImages = gsap.utils.toArray<HTMLElement>(".hero__media-image");
       const introCharSplits: SplitType[] = [];
       const introWordSplits: SplitType[] = [];
+      const capabilityTitleSplits: SplitType[] = [];
 
       document
         .querySelectorAll<HTMLElement>('[data-intro-split="chars"]')
@@ -96,6 +110,14 @@ export const usePortfolioMotion = (enabled: boolean) => {
           const split = new SplitType(element, { types: "words" });
           splits.push(split);
           introWordSplits.push(split);
+        });
+
+      document
+        .querySelectorAll<HTMLElement>('[data-capability-title-split="chars"]')
+        .forEach((element) => {
+          const split = new SplitType(element, { types: "chars" });
+          splits.push(split);
+          capabilityTitleSplits.push(split);
         });
 
       document
@@ -178,6 +200,65 @@ export const usePortfolioMotion = (enabled: boolean) => {
           );
         });
 
+      const capabilityTitle = document.querySelector<HTMLElement>(".capabilities__title");
+      const capabilityKicker = document.querySelector<HTMLElement>(
+        ".capabilities__title-kicker .capabilities__title-line-inner"
+      );
+      const [capabilityMainSplit, capabilityAccentSplit] = capabilityTitleSplits;
+
+      if (capabilityTitle) {
+        const capabilityTitleTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: capabilityTitle,
+            start: "top 84%",
+          },
+        });
+
+        if (capabilityKicker) {
+          capabilityTitleTl.from(
+            capabilityKicker,
+            {
+              autoAlpha: 0,
+              y: 18,
+              letterSpacing: "0.38em",
+              duration: 0.65,
+              ease: "power2.out",
+            },
+            0
+          );
+        }
+
+        if (capabilityMainSplit?.chars) {
+          capabilityTitleTl.from(
+            capabilityMainSplit.chars,
+            {
+              autoAlpha: 0,
+              yPercent: 118,
+              rotate: 4,
+              duration: 0.92,
+              ease: "power3.out",
+              stagger: 0.018,
+            },
+            0.08
+          );
+        }
+
+        if (capabilityAccentSplit?.chars) {
+          capabilityTitleTl.from(
+            capabilityAccentSplit.chars,
+            {
+              autoAlpha: 0,
+              yPercent: 122,
+              rotate: 2,
+              duration: 0.95,
+              ease: "power3.out",
+              stagger: 0.022,
+            },
+            0.24
+          );
+        }
+      }
+
       gsap.utils
         .toArray<HTMLElement>(".capability-card")
         .forEach((element, index) => {
@@ -247,16 +328,6 @@ export const usePortfolioMotion = (enabled: boolean) => {
           duration: 0.65,
           stagger: 0.08,
         }, 0.08)
-        .from(
-          ".social-dock a",
-          {
-            autoAlpha: 0,
-            x: -18,
-            duration: 0.55,
-            stagger: 0.08,
-          },
-          0.18
-        )
         .from(
           [".hero__eyebrow--intro", ".hero__role-prefix"],
           {
@@ -358,7 +429,7 @@ export const usePortfolioMotion = (enabled: boolean) => {
         ease: "power1.inOut",
       });
 
-      if (heroMedia && hero) {
+      if (hero) {
         gsap.timeline({
           scrollTrigger: {
             trigger: hero,
@@ -370,11 +441,6 @@ export const usePortfolioMotion = (enabled: boolean) => {
           .to(
             ".hero__intro",
             { yPercent: -12, autoAlpha: 0.2, ease: "none" },
-            0
-          )
-          .to(
-            heroMedia,
-            { yPercent: -4, scale: 1.02, ease: "none" },
             0
           )
           .to(

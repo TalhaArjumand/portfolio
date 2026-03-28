@@ -1,5 +1,23 @@
 import { FiArrowUpRight } from "react-icons/fi";
+import { FiGithub, FiLinkedin } from "react-icons/fi";
+import { SiUpwork } from "react-icons/si";
 import { portfolio } from "../content/portfolio";
+
+const getSocialLead = (label: string) => {
+  if (label === "LinkedIn") {
+    return <FiLinkedin aria-hidden="true" className="contact-social__lead" />;
+  }
+
+  if (label === "GitHub") {
+    return <FiGithub aria-hidden="true" className="contact-social__lead" />;
+  }
+
+  if (label === "Upwork") {
+    return <SiUpwork aria-hidden="true" className="contact-social__lead" />;
+  }
+
+  return null;
+};
 
 const Contact = () => {
   const { contact } = portfolio;
@@ -51,6 +69,7 @@ const Contact = () => {
               rel={link.href.startsWith("http") ? "noreferrer" : undefined}
               target={link.href.startsWith("http") ? "_blank" : undefined}
             >
+              {getSocialLead(link.label)}
               {link.label} <FiArrowUpRight />
             </a>
           ))}
